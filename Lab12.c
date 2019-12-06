@@ -12,7 +12,8 @@ int main{
 
         izn = a;
 
-        
+
+
         while(a>0){
             ch = a%10;
             a= a/10;
@@ -28,4 +29,4 @@ int main{
         printf("%d\n", );
 };
 
-More
+
