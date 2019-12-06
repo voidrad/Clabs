@@ -8,6 +8,7 @@ int main{
         int ch = 0;
         int end = 0;
         scanf("%d\n",a);
+
         izn = a;
 
         while(a>0){
