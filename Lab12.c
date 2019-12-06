@@ -9,7 +9,6 @@ int main{
         int end = 0;
         scanf("%d\n",a);
 
-
         izn = a;
 
 
