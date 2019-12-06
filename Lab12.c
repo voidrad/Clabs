@@ -9,8 +9,10 @@ int main{
         int end = 0;
         scanf("%d\n",a);
 
+
         izn = a;
 
+        
         while(a>0){
             ch = a%10;
             a= a/10;
