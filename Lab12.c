@@ -12,7 +12,7 @@ int main(){
         int kolnc = 0;
         int nc = 0;
         long end = 0;
-        scanf("%d", &a);
+        scanf("%ld", &a);
 
         izn = a;
 
@@ -46,7 +46,8 @@ int main(){
                 nc = 0;
             }
         }
-        printf("%d\n",end );
-};
+        printf("%ld\n",end );
+        printf("%ld\n",(end*2-izn) );
+}
 
 
