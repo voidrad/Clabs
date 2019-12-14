@@ -2,7 +2,7 @@
 // Created by Semka on 07-Dec-19.
 //
 #include <stdio.h>
-//#include <"Set.h">
+
 
 int main(){
     unsigned int set = 0;
@@ -22,12 +22,8 @@ int main(){
         }
         if(c == ' '){
             if (ans){
-//                int  j;
-//                for (j=0;j<=i-1;j++){
-//                    printf('%c',this[j] );
-//                }
+
                 printf("%s", this);
-//                ans = 0;
             }
             ans = 0;
             set = 0;
@@ -45,11 +41,6 @@ int main(){
             set = set | (1u << (c - 'a'));
         }
     }
-//    if(ans){
-//        printf("Yes");
-//    }
-//    else{
-//        printf("No");
-//    }
+
     return 0;
 }
