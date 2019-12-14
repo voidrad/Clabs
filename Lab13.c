@@ -7,7 +7,7 @@
 int main(){
     unsigned int set = 0;
     char c;
-    unsigned int U = (1u « 26) - 1;
+    unsigned int U = (1u << 26) - 1;
     short int ans = 0;
     while((c = getchar()) != EOF){
         if(c <= 'Z' && c>= 'A'){
@@ -21,17 +21,17 @@ int main(){
         }
 
         if(c - 'a' >= 0) {
-            if(set & (1u « (c - 'a'))){
+            if(set & (1u << (c - 'a'))){
                 ans = 1;
             }
-            set = set | (1u « (c - 'a'));
+            set = set | (1u << (c - 'a'));
         }
     }
     if(ans){
-        printf("Yes Yes Yes");
+        printf("Yes");
     }
     else{
-        printf("No No No");
+        printf("No");
     }
     return 0;
 }
