@@ -20,15 +20,11 @@ int main()
         printf("Too big value");
         return 0;
     }
-
     for(int i=0;i<n; i++){
         for(int j=0;j<n; j++) {
             scanf("%d",&a[i][j]);
         }
     }
-
-//
-
     for(int i=0;i<n; i++){
         for(int j=0;j<n; j++) {
             printf("%d",a[i][j] );
@@ -36,11 +32,6 @@ int main()
         }
         printf("\n");
     }
-
-
-    //
-
-
     for(int j=0;j<n;j++){
         for(int i=0;i<n;i++)
         {
@@ -48,11 +39,9 @@ int main()
                 max =max* a[i][j];
                 min = max;
             }
-
             if(j>0){
                 nm = nm*a[i][j];
             }
-
         }
     if(j!=0 && max<nm){
         nmax = j;
@@ -71,7 +60,6 @@ for(int i=0;i<n;i++){
     pos = a[nmin][i];
     a[nmin][i]= a[nmax][i];
     a[nmax][i] = pos;
-
 }
     for(int j=0;j<n; j++){
         for(int i=0;i<n; i++) {
@@ -80,8 +68,7 @@ for(int i=0;i<n;i++){
         }
         printf("\n");
     }
-
-return 0;
+    return 0;
 }
 
 
