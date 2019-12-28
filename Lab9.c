@@ -10,7 +10,7 @@
 //Задаем функцию эллипса
 int func(int x, int y)
 {
-    if(((x-10)*(x-10)+(y-10)*(y-10)<100)&& ((x-10)*(x-10)+(y-10)*(y-10)>25)){
+    if(((x-10)*(x-10)+(y-10)*(y-10)<=100) && ((x-10)*(x-10)+(y-10)*(y-10)>=25)){
         return 1;
     }else{ return 0;}
 }
@@ -54,10 +54,10 @@ int main()
         i_last = i;
         j_last = j;
         l_last = l;
-
+        printf("i = %d, j = %d, l = %d\n", i, j, l);
         if (func(i, j))
         {
-            printf("The point is inside the \n");
+            printf("The point is inside the ring \n");
             printf("k = %d\n", k);
             printf("i = %d, j = %d, l = %d\n", i, j, l);
             break;
