@@ -8,7 +8,7 @@
 double func(double x)
 {
     double res;
-    res = log(x+2);
+    res = log(2+x);
     return res;
 }
 
@@ -16,38 +16,31 @@ int main()
 {
     double x, d, S, eps = 1., a = -1, b = 1, h = (b - a) / 10;
     int n;
-
     while (1. + eps > 1.)
     {
         eps /= 2.;
     }
     printf("Machine epsilon = %.21f\n", eps);
     printf("-------------------------------------------------------\n");
-    printf("|  x   |         S          |       F            | n  |\n");
+    printf("|  x   |         S          |        F(x)        | n  |\n");
     printf("|------|--------------------|--------------------|----|\n");
-    for (x = a; x <= b+0.001; x += h)
+
+
+//    S = log(2);
+//    d = 1;
+//    n = 1;
+    for (x = a; x <= b; x += h)
     {
         S = log(2);
         d = 1;
         n = 1;
-       int  znk = -1;
-        double znm =1.;
-        double xn = 1.;
         while ((d > eps || d < -eps) && n <= 100)
         {
-            int i;
-            for(i = 0;i<=n; i++){
-                xn *= x;
-                znk *= -1;
-                znm *= 2 ;
-            }
-
-             d = znk*xn/(n*znm );
+            if (n == 1) d = x/2;
+            else
+             d = d * ((-x*(n-1))/(2*n));
             S += d;
             n++;
-            znk = -1;
-            znm =1;
-            xn = 1;
         }
         printf("| %.2f | %.16f | %.16f | %2d |\n", x, S, func(x), n);
     }
