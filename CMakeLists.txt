@@ -3,7 +3,6 @@ project(Clabs)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Clabs main.c)
 add_executable(Lab11 Lab11.c)
 add_executable(Lab12 Lab12.c)
 add_executable(Lab9 Lab9.c)
@@ -14,3 +13,4 @@ add_executable(Lab15 Lab15.c)
 add_executable(Lab14 Lab14.c)
 add_executable(Kurs4 Kurs4.c)
 add_executable(Lab23 Lab23.c)
+add_executable(Lab24 Lab24.c)
