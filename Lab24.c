@@ -235,31 +235,51 @@ void postOrder(const char *str, Stack *st){// postOrder(expr, &stPost);
 
     stackDestroy(&stOp);
 }
+//Node *Zamena1(Node **node){
+//    if ((*node)!= NULL){
+//
+//
+//        if (((*node)->_left==NULL)  && ((*node)->_right==NULL) && ((*node)->_varOp =='b')){
+//            (*node)->_varOp ='+'; // так как у нас замена a = i + 4
+//
+//            Node *tmpNode = NULL;
+//            tmpNode = treeNodeCreate();// пустой узел дерева
+//            tmpNode->_varOp = 'i';
+//            (*node)->_left=tmpNode;
+//
+//            Node *tmpNode1 = NULL;
+//            tmpNode1 = treeNodeCreate();
+//            tmpNode1->_num = 4;
+//            (*node)->_right=tmpNode1;
+//        }
+//        else{ // зочем? Неясно. Наверное на случай если вдруг справа и слева не нул
+//            Zamena1(&(*node)->_left);
+//            Zamena1(&(*node)->_right);
+//        }
+//    }
+//}
+
 Node *Zamena1(Node **node){
     if ((*node)!= NULL){
 
+        if(((*node)->_left!=NULL)  && ((*node)->_right!=NULL)){
+            if ((((*node)->_left)->_varOp == '/' ) && (((*node)->_right)->_varOp == '/' ) && ((*node)->_varOp =='*')){
+                double change;
+                (*node)->_varOp ='/';
+                ((*node)->_left)->_varOp = '*';
+                ((*node)->_right)->_varOp = '*';
+                change =((*node)->_right)->_left->_num;
+                ((*node)->_right)->_left->_num = ((*node)->_left)->_right->_num;
+                ((*node)->_left)->_right->_num =change;
 
-        if (((*node)->_left==NULL)  && ((*node)->_right==NULL) && ((*node)->_varOp =='a')){
-            (*node)->_varOp ='+'; // так как у нас замена a = i + 4
-
-            Node *tmpNode = NULL;
-            tmpNode = treeNodeCreate();// пустой узел дерева
-            tmpNode->_varOp = 'i';
-            (*node)->_left=tmpNode;
-
-            Node *tmpNode1 = NULL;
-            tmpNode1 = treeNodeCreate();
-            tmpNode1->_num = 4;
-            (*node)->_right=tmpNode1;
-        }
-        else{ // зочем? Неясно. Наверное на случай если вдруг справа и слева не нул
-            Zamena1(&(*node)->_left);
-            Zamena1(&(*node)->_right);
-        }
+            }
+            else{
+                // зочем? Неясно. Наверное на случай если вдруг справа и слева не нул
+                Zamena1(&(*node)->_left);
+                Zamena1(&(*node)->_right);
+            }}
     }
 }
-
-
 int main(void)
 {
     int action;
