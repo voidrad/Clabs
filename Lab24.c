@@ -1,8 +1,7 @@
 //
 // Created by YaTeb on 6/9/2020.
 //
-
-/ gcc main.c stack.c -o laba24 -lm && ./laba24
+// gcc main.c stack.c -o laba24 -lm && ./laba24
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -267,23 +266,24 @@ int main(void)
     char expr[255];
     Node *root = NULL, *root2 = NULL;
     Stack stPost;
+
     while (1)
     {
-        printf("Меню:\n");
-        printf("1) Ввести выражение\n");
-        printf("2) Печать исходного выражения\n");
-        printf("3) Печать преобразованного выражения\n");
-        printf("4) Печать исходного дерева\n");
-        printf("5) Печать преобразованного дерева\n");
-        printf("6) Выход\n");
-        printf("Выберите действие: ");
+        printf("Menu:\n");
+        printf("1) enter expression\n");
+        printf("2) print inserted expression\n");
+        printf("3) print changed expresson\n");
+        printf("4) print entered tree\n");
+        printf("5) print changed tree\n");
+        printf("6) exit\n");
+        printf("chose: ");
         scanf("%d", &action);
 
         switch (action)
         {
             case 1:
             {
-                printf("Введите выражение: ");
+                printf("vvedi: ");
                 scanf("%s", expr);
                 treeDestroy(&root); // для введения нового выражения нужно сначала удалить старое
                 treeDestroy(&root2);
