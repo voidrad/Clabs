@@ -1,16 +1,15 @@
 //
 // Created by YaTeb on 6/9/2020.
 //
-// gcc main.c stack.c -o laba24 -lm && ./laba24
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include "stack.h"
-
 typedef struct _Node
 {
-    char _varOp;	// _var0p это символ
-    double _num;	// _num это число
+    char _varOp;
+    double _num;
     struct _Node *_left;
     struct _Node *_right;
 } Node;
@@ -34,7 +33,7 @@ void postOrder(const char *str, Stack *st);
 Node *treeNodeCreate(void){
     Node *tmpNode = malloc(sizeof(Node)); // ВНИМАНИЕ
 
-    tmpNode->_varOp = '\0';//‘\0’ (нуль-символ), чтобы программе было возможно определить конец строки.
+    tmpNode->_varOp = '\0';
     tmpNode->_num = 0.0;
     tmpNode->_left = NULL;
     tmpNode->_right = NULL;
@@ -42,7 +41,7 @@ Node *treeNodeCreate(void){
     return tmpNode;
 }
 
-Node *treeCopy(Node **node){ // root2 = treeCopy(&root) копирование дерева для вывода измененного дерева
+Node *treeCopy(Node **node){
     Node *tmpNode = NULL;
 
     if (*node == NULL)
@@ -53,11 +52,11 @@ Node *treeCopy(Node **node){ // root2 = treeCopy(&root) копирование �
     tmpNode->_num = (*node)->_num;
     tmpNode->_left = treeCopy(&((*node)->_left));
     tmpNode->_right = treeCopy(&((*node)->_right));
-    return tmpNode; // возвращает корень дерева скопированного
+    return tmpNode;
 }
 
-int CheckLeftNode(Node **node){// проверяет пустой ли левый потомок
-    if (*node == NULL)	// ВНИМАНИЕ
+int CheckLeftNode(Node **node){
+    if (*node == NULL)
         return 0;
 
     if ((*node)->_left == NULL || (*node)->_right == NULL)
@@ -66,21 +65,21 @@ int CheckLeftNode(Node **node){// проверяет пустой ли левы�
     return ((*node)->_left->_varOp == '\0' && (*node)->_left->_num == 0.0);
 }
 
-void treeBuild(Node **node, Stack *st){// построение дерева
+void treeBuild(Node **node, Stack *st){
     Token token;
 
-    if (stackEmpty(st)) // если стек st пустой
+    if (stackEmpty(st))
         return;
 
-    token = stackTop(st); // token это верхний элемент стека
+    token = stackTop(st);
 
-    stackDelTop(st);// удаление верхнего элемента стека st
+    stackDelTop(st);
 
-    (*node) = treeNodeCreate(); // создание одной ноды
+    (*node) = treeNodeCreate();
     (*node)->_varOp = token._varOp;
     (*node)->_num = token._num;
 
-    if (isOp((*node)->_varOp)){ // если в _varOp у нас операция была, то мы создаем справа и слева ноды и заполняем их из стэка st
+    if (isOp((*node)->_varOp)){
         treeBuild(&(*node)->_right, st);
         treeBuild(&(*node)->_left, st);
     }
@@ -96,10 +95,10 @@ void treeDestroy(Node **node){
     if ((*node)->_right != NULL)
         treeDestroy(&(*node)->_right);
 
-    free(*node); // ВНИМАНИЕ. СТРОКА СНИЗУ
+    free(*node);
 }
 
-void PKL(Node **node, const int level){ // печать исходного дерева
+void PKL(Node **node, const int level){
     if (*node == NULL)
         return;
 
@@ -115,7 +114,7 @@ void PKL(Node **node, const int level){ // печать исходного де�
         PKL(&(*node)->_left, level + 1);
 }
 
-void LKP(Node **node){ // печать преобразованного выражения. Из уже преобразованного дерева где корень у нас root2 LKP(&root2);
+void LKP(Node **node){
     if (*node == NULL)
         return;
 
@@ -126,11 +125,11 @@ void LKP(Node **node){ // печать преобразованного выра
 
 
         LKP(&(*node)->_left);
-        if ((*node)->_left->_left != NULL) // если мы поднялись на два уровня выше
+        if ((*node)->_left->_left != NULL)
             printf(")");
     }
 
-    if ((*node)->_varOp != '\0') // спустились в самый левый низ. Пишем букавку
+    if ((*node)->_varOp != '\0')
         printf("%c", (*node)->_varOp);
     else
         printf("%f", (*node)->_num);
@@ -139,7 +138,7 @@ void LKP(Node **node){ // печать преобразованного выра
         if ((*node)->_right->_left != NULL)
             printf("(");
 
-        LKP(&(*node)->_right);// ищем левый лист
+        LKP(&(*node)->_right);
 
         if ((*node)->_right->_left != NULL)
             printf(")");
@@ -180,30 +179,30 @@ int isOpHigh(const char op1, const char op2){
     return (opPrior(op1) >= opPrior(op2));
 }
 
-void postOrder(const char *str, Stack *st){// postOrder(expr, &stPost);
+void postOrder(const char *str, Stack *st){
 
-    int i = 0, isBracket = 0;	// isBracket это скобка; is dot точка; step степень; i данный читаемый элемент
+    int i = 0, isBracket = 0;
 
     Token tk;
-    Stack stOp; // у нас два стека. st и st0p. st это стек вывода уже. А st0p он собирает элементы и сравнивает
+    Stack stOp;
 
     stackCreate(&stOp);
 
     tk._varOp = '\0';
     tk._num = 0.0;
 
-    while (str[i] != '\0'){	// ВНИМАНИЕ  isDot ваще бесполезна КАК И if ниже
-        if (isLetter(str[i])){ // если условие выполнено
+    while (str[i] != '\0'){
+        if (isLetter(str[i])){
             tk._varOp = str[i];
-            stackPush(st, tk); 	// добавление элемента tk в стэк st
+            stackPush(st, tk);
         }
         else if (isNumber(str[i])){
-            tk._varOp = '\0'; // очищаем если вдруг там шо было ВНИМАНИЕ ниже if не нужен
-            tk._num = tk._num * 10.0 + str[i] - '0'; // str[i] - '0'преобразует символ в позиции i в числовую цифру. ВНИМАНИЕ бредовую дичь с tk.num можн удалить
+            tk._varOp = '\0';
+            tk._num = tk._num * 10.0 + str[i] - '0';
 
-            if (!isNumber(str[i + 1])){ // ВНИМАНИЕ
+            if (!isNumber(str[i + 1])){
                 stackPush(st, tk);
-                tk._num = 0.0; // ВНИМАНИЕ МОЖНО УДАЛИТЬ БРЕД СНИЗУ ДВЕ СТРОЧКИ
+                tk._num = 0.0;
             }
         }
         else if (isOp(str[i])){
@@ -212,13 +211,13 @@ void postOrder(const char *str, Stack *st){// postOrder(expr, &stPost);
             if (str[i] == ')')
                 isBracket = 1;
 
-            while (!stackEmpty(&stOp) && (isOpHigh(stackTop(&stOp)._varOp, str[i]) || isBracket)){// пока( стек не пустой && ( по приоритету элемент в стэке stOp больше элемента что считываем || b != 0) )
-                if (stackTop(&stOp)._varOp == '(') // на случай если ты с скобки вводишь выражение
+            while (!stackEmpty(&stOp) && (isOpHigh(stackTop(&stOp)._varOp, str[i]) || isBracket)){
+                if (stackTop(&stOp)._varOp == '(')
                     isBracket = 0;
                 else
-                    stackPush(st, stackTop(&stOp));// добавление в вывод элемента с приоритетом большим чем в элемента строчке
+                    stackPush(st, stackTop(&stOp));
 
-                stackDelTop(&stOp); // удаление верхнего элемента
+                stackDelTop(&stOp);
             }
 
             if (str[i] != ')')
@@ -228,36 +227,14 @@ void postOrder(const char *str, Stack *st){// postOrder(expr, &stPost);
         i++;
     }
 
-    while (!stackEmpty(&stOp)){ // если строчка закончилась но элементы в стеке st0p еще остались то выводим их
+    while (!stackEmpty(&stOp)){
         stackPush(st, stackTop(&stOp));
         stackDelTop(&stOp);
     }
 
     stackDestroy(&stOp);
 }
-//Node *Zamena1(Node **node){
-//    if ((*node)!= NULL){
-//
-//
-//        if (((*node)->_left==NULL)  && ((*node)->_right==NULL) && ((*node)->_varOp =='b')){
-//            (*node)->_varOp ='+'; // так как у нас замена a = i + 4
-//
-//            Node *tmpNode = NULL;
-//            tmpNode = treeNodeCreate();// пустой узел дерева
-//            tmpNode->_varOp = 'i';
-//            (*node)->_left=tmpNode;
-//
-//            Node *tmpNode1 = NULL;
-//            tmpNode1 = treeNodeCreate();
-//            tmpNode1->_num = 4;
-//            (*node)->_right=tmpNode1;
-//        }
-//        else{ // зочем? Неясно. Наверное на случай если вдруг справа и слева не нул
-//            Zamena1(&(*node)->_left);
-//            Zamena1(&(*node)->_right);
-//        }
-//    }
-//}
+
 
 Node *Zamena1(Node **node){
     if ((*node)!= NULL){
@@ -274,7 +251,6 @@ Node *Zamena1(Node **node){
 
             }
             else{
-                // зочем? Неясно. Наверное на случай если вдруг справа и слева не нул
                 Zamena1(&(*node)->_left);
                 Zamena1(&(*node)->_right);
             }}
@@ -305,12 +281,12 @@ int main(void)
             {
                 printf("vvedi: ");
                 scanf("%s", expr);
-                treeDestroy(&root); // для введения нового выражения нужно сначала удалить старое
+                treeDestroy(&root);
                 treeDestroy(&root2);
                 stackCreate(&stPost);
                 postOrder(expr, &stPost);
                 treeBuild(&root, &stPost);
-                stackDestroy(&stPost);  // удаляем  пустой стек чтобы не занимал место. Пустой он потому что мы из него построили дерево
+                stackDestroy(&stPost);
                 root2 = treeCopy(&root);
                 Zamena1(&root2);
                 break;
